@@ -1,0 +1,31 @@
+app_everytranslator:
+    Menu:
+        Title: 'Translator'
+        PrimeryMenu: false;
+        AdminMenu: true
+        UserMenu: false
+        Controller: 'EveryTranslator'
+        Icon: 'fa fa-globe-europe'
+        Active: 'True'
+EveryTranslator\Model\EveryTranslator:
+    API_Filter_DataStoreID_Map: 'DataStoreID'
+    API_View_Fields:
+        - Slug
+        - Title
+        - Value
+        - Locale
+    API_Create_Fields:
+        - Slug
+        - Title
+        - Value
+        - Locale
+    API_Edit_Fields:
+        - Slug
+        - Title
+        - Value
+        - Locale
+API_Namespace_Class_Map:
+    EveryTranslator: 'EveryTranslator\Model\EveryTranslator'
+SilverStripe\Core\Injector\Injector:
+  EveryDataStore\Helper\FormFieldHelper:
+    class: EveryTranslator\Extension\EveryTranslatorFormFieldExtension

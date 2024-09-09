@@ -1,0 +1,9 @@
+EveryDataStore\Model\Menu:
+  extensions:
+    - EveryTranslator\Extension\EveryTranslatorMenuExtension
+EveryDataStore\Model\RecordSet\Form\FormFieldSetting:
+  extensions:
+    - EveryTranslator\Extension\EveryTranslatorFormFieldSettingExtension
+EveryDataStore\Model\RecordSet\Form\FormSection:
+  extensions:
+    - EveryTranslator\Extension\EveryTranslatorFormSectionExtension
