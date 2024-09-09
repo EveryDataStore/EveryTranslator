@@ -1,0 +1,7 @@
+ar:
+   EveryTranslator\Model\EveryTranslator:
+        TITLE: 'الاسم'
+        VALUE: 'قيمة'
+        LOCALE: 'لغة'
+       
+        
