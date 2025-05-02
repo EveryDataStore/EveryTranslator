@@ -1,45 +1,100 @@
 <?php
+
 namespace EveryTranslator\Helper;
 
 use SilverStripe\Core\Config\Config;
 use EveryDataStore\Helper\EveryDataStoreHelper;
 use EveryTranslator\Model\EveryTranslator;
 
+
 /** EveryDataStore/EveryTranslator v1.0
  * 
  * This class defines translation function
  * 
  */
-
 class EveryTranslatorHelper extends EveryDataStoreHelper {
-    
+
     /**
      * This function localizes the given string in the current dataStore replaces its value
      * @param string $title
      * @return string
      */
-    public static function _t($title){
-        $trans = self::getMember() ? EveryTranslator::get()->filter(['Title' => $title, 'DataStoreID' => self::getCurrentDataStoreID(), 'Locale' => self::getMember()->Locale])->first(): null;
-	return $trans ? $trans->Value : $title;
+    public static function _t($title) {
+        if(!is_string($title) || is_array(unserialize($title))) return $title;
+        $trans = self::getMember() ? EveryTranslator::get()->filter(['Title' => $title, 'DataStoreID' => self::getCurrentDataStoreID(), 'Locale' => self::getMember()->Locale])->first() : null;
+        if(!$trans){
+            $trans = self::createDefault($title);
+        }
+        return $trans ? $trans->Value : $title;
     }
-    
+
     /**
      * This function creates a new item as default for all languages excluding default_locale 
      * @param string $title
      */
-
     public static function createDefault($title) {
-        $fl = Config::inst()->get('Frontend_Languages');      
+        if(!is_string($title) || is_array(unserialize($title))) return $title;
+        $fl = Config::inst()->get('Frontend_Languages');
         foreach ($fl as $k => $v) {
-                $t = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $k, 'DataStoreID' => EveryDataStoreHelper::getCurrentDataStoreID()])->first();
-                if (!$t) {
-                    $newT = new EveryTranslator();
-                    $newT->Title = trim($title);
-                    $newT->Value = trim($title);
-                    $newT->Locale = $k;
-                    $newT->DataStoreID = EveryDataStoreHelper::getCurrentDataStoreID();
-                    $newT->write();
-                }
+            $t = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $k, 'DataStoreID' => EveryDataStoreHelper::getCurrentDataStoreID()])->first();
+            if (!$t) {
+                $newT = new EveryTranslator();
+                $newT->Title = trim($title);
+                $newT->Value = self::getMember()->Locale !== $k ? self::getGoogleTranslate(trim($title), substr($k,0,2)): trim($title);
+                $newT->Locale = $k;
+                $newT->DataStoreID = EveryDataStoreHelper::getCurrentDataStoreID();
+                $newT->write();
             }
         }
+    }
+    
+    /**
+     * Returns true if SecordSet Translatable
+     * @param string $recordSetSlug
+     * @return boolean
+     */
+    public static function isTranslatableRecordSet($recordSetSlug){
+         $translatableRecordSets = Config::inst()->get('translatableRecordSets');
+         if($translatableRecordSets && in_array($recordSetSlug, $translatableRecordSets)){
+             return true;
+         }
+    }
+    
+    
+    public static function getGoogleTranslate($title, $target) {
+        $googleTranslateKey = Config::inst()->get('EveryTranslator\Model\EveryTranslator', 'Google_Translate_Key');
+        if (!empty($googleTranslateKey)) {
+            $params = [
+                'q' => $title,
+                'target' => $target,
+                'key' => $googleTranslateKey
+            ];
+                        
+            $cURL = curl_init();
+            curl_setopt($cURL, CURLOPT_URL, $endPoint = 'https://translation.googleapis.com/language/translate/v2/?' . http_build_query($params));
+            curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
+            $res = json_decode(curl_exec($cURL));
+            if ($res->data && isset($res->data->translations[0]) && $res->data->translations[0]->translatedText) {
+                return strip_tags($res->data->translations[0]->translatedText);
+            }
+        }
+    }
+   
+     public static function isDup($title, $locale) {
+        $items = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $locale]);
+        if ($items->Count() > 1)
+            return true;
+        return false;
+    }
+    
+    public static function deleteTranslate($title, $id, $locale) {
+        $items = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $locale]);
+        foreach($items as $item){
+          if($item->ID !== $id){ 
+              $item->delete();
+              echo $item->ID.'-'.$title.'--'.$id.' --'.$item->Locale.'<br>';
+          }
+            
+        }
+    }
 }
