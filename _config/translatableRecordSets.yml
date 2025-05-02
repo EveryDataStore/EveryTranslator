@@ -1,0 +1,2 @@
+#Here you can define which RecordSetItems of a RecordSet should be translated.
+translatableRecordSets: ['RecordSetSlug_1','RecordSetSlug_2', 'RecordSetSlug_3']
