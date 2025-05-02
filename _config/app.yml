@@ -1,3 +1,9 @@
+---
+Name: MyEveryTranslator
+---
+EveryDataStore\Model\RecordSet\RecordSetItemData:
+  extensions:
+    - EveryTranslator\Extension\EveryTranslatorRecordSetItemDataExtension
 EveryDataStore\Model\Menu:
   extensions:
     - EveryTranslator\Extension\EveryTranslatorMenuExtension

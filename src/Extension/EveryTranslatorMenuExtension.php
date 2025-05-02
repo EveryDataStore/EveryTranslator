@@ -10,4 +10,5 @@ class EveryTranslatorMenuExtension extends DataExtension {
         parent::onAfterWrite();
         EveryTranslatorHelper::createDefault($this->owner->Title);
     }
+    
 }
