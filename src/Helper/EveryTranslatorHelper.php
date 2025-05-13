@@ -61,13 +61,14 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
     }
     
     
-    public static function getGoogleTranslate($title, $target) {
+    public static function getGoogleTranslate($title, $target, $src= 'en') {
         $googleTranslateKey = Config::inst()->get('EveryTranslator\Model\EveryTranslator', 'Google_Translate_Key');
         if (!empty($googleTranslateKey)) {
             $params = [
                 'q' => $title,
                 'target' => $target,
-                'key' => $googleTranslateKey
+                'key' => $googleTranslateKey,
+                'src' => $src
             ];
                         
             $cURL = curl_init();
@@ -77,24 +78,6 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
             if ($res->data && isset($res->data->translations[0]) && $res->data->translations[0]->translatedText) {
                 return strip_tags($res->data->translations[0]->translatedText);
             }
-        }
-    }
-   
-     public static function isDup($title, $locale) {
-        $items = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $locale]);
-        if ($items->Count() > 1)
-            return true;
-        return false;
-    }
-    
-    public static function deleteTranslate($title, $id, $locale) {
-        $items = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $locale]);
-        foreach($items as $item){
-          if($item->ID !== $id){ 
-              $item->delete();
-              echo $item->ID.'-'.$title.'--'.$id.' --'.$item->Locale.'<br>';
-          }
-            
         }
     }
 }
