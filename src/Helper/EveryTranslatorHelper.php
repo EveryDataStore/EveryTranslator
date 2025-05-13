@@ -79,22 +79,4 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
             }
         }
     }
-   
-     public static function isDup($title, $locale) {
-        $items = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $locale]);
-        if ($items->Count() > 1)
-            return true;
-        return false;
-    }
-    
-    public static function deleteTranslate($title, $id, $locale) {
-        $items = EveryTranslator::get()->filter(['Title' => $title, 'Locale' => $locale]);
-        foreach($items as $item){
-          if($item->ID !== $id){ 
-              $item->delete();
-              echo $item->ID.'-'.$title.'--'.$id.' --'.$item->Locale.'<br>';
-          }
-            
-        }
-    }
 }
