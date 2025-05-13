@@ -8,8 +8,6 @@ The EveryTranslator enables multilingualism for EveryDataStore ECM. It provides 
 - Form section title
 - EveryNotifyTemplate items
 
-## Google Translate
-To enable automatic translations using Google Translate, insert your Google Translate API key into the Google_Translate_Key variable in _config/config.yml.
 
 ## Requirements
 [EveryDataStoreBackend](https://github.com/EveryDataStore/EveryDataStoreBackend)<br/>
