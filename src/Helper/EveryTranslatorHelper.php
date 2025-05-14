@@ -80,4 +80,5 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
             }
         }
     }
+    
 }
