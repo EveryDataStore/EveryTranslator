@@ -1,6 +1,6 @@
 {
   "name": "everydatastore/everytranslator",
-  "description": "Provides multilingual support for EveryDataStore ECM. This module enables translation of user interface elements such as labels, menu items, notifications, and custom texts to support international deployments.",
+  "description": "Provides multilingual support for EveryDataStore ECM. This module enables translation of user interface elements such as labels, menu items, notifications, and custom texts to support international deployments",
   "type": "silverstripe-vendormodule",
   "homepage": "https://everydatastore.org/en/apps/everytranslator",
   "authors": [
@@ -10,7 +10,7 @@
   ],
   "require": {
     "php": "^8.1",
-    "everydatastore/everydatastorebackend": "^1.5.3"
+    "everydatastore/everydatastorebackend": "^1.5.5"
   },
   "autoload": {
     "psr-4": {
