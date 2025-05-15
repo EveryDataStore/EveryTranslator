@@ -1,2 +1,1 @@
-#Here you can define which RecordSetItems of a RecordSet should be translated.
-translatableRecordSets: ['RecordSetSlug_1','RecordSetSlug_2', 'RecordSetSlug_3']
+translatableRecordSets: ['596074c3e79a5754ba9a','39f42a80626cc14d0df0', '01eb0aa6fdb2a52fe13b', 'b2e7293da4f47e6a6ed0', '62b0d94242c78238854a', 'd3c464ba283eb073018b', 'b4d8dd0d602ee77e1c54', 'e59e8d4e25fdbf2a20fe', 'b4d8dd0d602ee77e1c54', '80a22a87330e5d792128', '20e47bf19c0e54b1c2d8', '743f0d9e4b8979191856', '6a76979006a5b3cd77c6', '2c44693094d63e65767b', 'e20115f61829ada90708', 'b0d9324748ad731fe588', '7b44c45c75f72b0a68c8', 'b962c010d3651f343b7d']
