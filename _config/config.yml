@@ -24,7 +24,7 @@ EveryTranslator\Model\EveryTranslator:
         - Title
         - Value
         - Locale
-    Google_Translate_Key: 'Put here your API-Key for Google Translate.'
+    Google_Translate_Key: 'AIzaSyBYw0xqK1bJYwiphRLXxcfutQ2eJHLFctM'
 API_Namespace_Class_Map:
     EveryTranslator: 'EveryTranslator\Model\EveryTranslator'
 SilverStripe\Core\Injector\Injector:

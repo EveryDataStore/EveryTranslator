@@ -60,8 +60,17 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
          }
     }
     
-    
-    public static function getGoogleTranslate($title, $target, $src= 'en') {
+    /**
+     * Translates the given label using the Google Translate API.
+     * Prerequisite: A valid Google API key must be configured in
+     * `everytranslator/_config/config.yml` under the appropriate key setting.
+     *
+     * @param string $title
+     * @param string $target
+     * @param string $src
+     * @return string
+     */
+    public static function getGoogleTranslate($title, $target, $src = 'en') {
         $googleTranslateKey = Config::inst()->get('EveryTranslator\Model\EveryTranslator', 'Google_Translate_Key');
         if (!empty($googleTranslateKey)) {
             $params = [
@@ -70,7 +79,7 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
                 'key' => $googleTranslateKey,
                 'src' => $src
             ];
-                        
+
             $cURL = curl_init();
             curl_setopt($cURL, CURLOPT_URL, $endPoint = 'https://translation.googleapis.com/language/translate/v2/?' . http_build_query($params));
             curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true);
@@ -79,6 +88,7 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
                 return strip_tags($res->data->translations[0]->translatedText);
             }
         }
+        return $title;
     }
-    
+
 }
