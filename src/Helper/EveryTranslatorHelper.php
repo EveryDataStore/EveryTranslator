@@ -63,11 +63,11 @@ class EveryTranslatorHelper extends EveryDataStoreHelper {
     /**
      * Translates the given label using the Google Translate API.
      * Prerequisite: A valid Google API key must be configured in
-     * `everytranslator/_config/config.yml` under the appropriate key setting.
+     * everydatastore/_config/everyTranslator.yml` under the appropriate key setting.
      *
      * @param string $title
      * @param string $target
-     * @param string $src
+     * @param string $src, default en
      * @return string
      */
     public static function getGoogleTranslate($title, $target, $src = 'en') {
